@@ -318,10 +318,10 @@ server = function(input, output) {
 
         inputData01 = reScore(gclass01)
         r01 = as(inputData01, "realRatingMatrix")
-        recom01 = predict(model01, r01, verbose = TRUE)
-        colnames(recom01) = c("Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
+        recom01 = predict(model01, r01, verbose = TRUE)        
         RMSE = recommenderlab::RMSE(as(r01, "matrix"), as.matrix(recom01))
         result = cbind(round(RMSE, 2), round(recom01, 2))
+        colnames(result) = c("RMSE", "Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         result
     })
 
@@ -341,9 +341,9 @@ server = function(input, output) {
         inputData02 = reScore(gclass02)
         r02 = as(inputData02, "realRatingMatrix")
         recom02 = predict(model02, r02, verbose = TRUE)
-        colnames(recom02) = c("Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         RMSE = recommenderlab::RMSE(as(r02, "matrix"), as.matrix(recom02))
         result = cbind(round(RMSE, 2), round(recom02, 2))
+        colnames(result) = c("RMSE", "Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         result
     })
 
@@ -363,9 +363,9 @@ server = function(input, output) {
         inputData03 = reScore(gclass03)
         r03 = as(inputData03, "realRatingMatrix")
         recom03 = predict(model03, r03, verbose = TRUE)
-        colnames(recom03) = c("Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         RMSE = recommenderlab::RMSE(as(r03, "matrix"), as.matrix(recom03))
         result = cbind(round(RMSE, 2), round(recom03, 2))
+        colnames(result) = c("RMSE", "Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         result
     })
 
@@ -385,9 +385,9 @@ server = function(input, output) {
         inputData04 = reScore(gclass04)
         r04 = as(inputData04, "realRatingMatrix")
         recom04 = predict(model04, r04, verbose = TRUE)
-        colnames(recom04) = c("Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         RMSE = recommenderlab::RMSE(as(r04, "matrix"), as.matrix(recom04))
         result = cbind(round(RMSE, 2), round(recom04, 2))
+        colnames(result) = c("RMSE","Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         result
     })
 }
