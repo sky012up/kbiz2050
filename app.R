@@ -1,5 +1,5 @@
 # Load packages
-#install.packages(c("shiny","httpuv","shinythemes","dplyr","readxl","rvest","stringr"))
+#install.packages(c("shiny","shinythemes","keras","recommenderlab","DT"))
 library(shiny)
 library(shinythemes)
 library(keras)
@@ -9,7 +9,7 @@ library(DT)
 # Define UI
 ui = shinyUI(fluidPage(
 
-  titlePanel("인공신경망기반 이종 DB 연계를 통한 성장단계별 맞춤형지원정책추천서비스_V1 by_JSLEE"),
+  titlePanel("kbizRecomSys_V1 by_JSLEE"),
 
   sidebarLayout(
 
@@ -63,23 +63,23 @@ ui = shinyUI(fluidPage(
 
       mainPanel(
                 tabsetPanel(
-                            tabPanel(title = "도입기", 
-                                     h4("Table (0점 = 활용가능성 없음, 1점 = 활용가능성 낮음, 2점 = 활용가능성 높음)"),
+                            tabPanel(title = "Life Cycle: Introduction", 
+                                     h4("Table (score: 0 = No availability, 1 = Low availability, 2 = High availability)"),
                                      dataTableOutput("textDisplay1")
                                      ),
 
-                            tabPanel(title = "성장기", 
-                                     h4("Table (0점 = 활용가능성 없음, 1점 = 활용가능성 낮음, 2점 = 활용가능성 높음)"),
+                            tabPanel(title = "Life Cycle: Growth", 
+                                     h4("Table (score: 0 = No availability, 1 = Low availability, 2 = High availability)"),
                                      dataTableOutput("textDisplay2")
                                      ),
 
-                            tabPanel(title = "성숙기", 
-                                     h4("Table (0점 = 활용가능성 없음, 1점 = 활용가능성 낮음, 2점 = 활용가능성 높음)"),
+                            tabPanel(title = "Life Cycle: Maturity", 
+                                     h4("Table (score: 0 = No availability, 1 = Low availability, 2 = High availability)"),
                                      dataTableOutput("textDisplay3")
                                      ),
 
-                            tabPanel(title = "쇠퇴기", 
-                                     h4("Table (0점 = 활용가능성 없음, 1점 = 활용가능성 낮음, 2점 = 활용가능성 높음)"),
+                            tabPanel(title = "Life Cycle: Decline", 
+                                     h4("Table (score: 0 = No availability, 1 = Low availability, 2 = High availability)"),
                                      dataTableOutput("textDisplay4")
                                      )
                             )
@@ -319,7 +319,7 @@ server = function(input, output) {
         inputData01 = reScore(gclass01)
         r01 = as(inputData01, "realRatingMatrix")
         recom01 = predict(model01, r01, verbose = TRUE)
-        colnames(recom01) = c("조세지원", "자금지원", "금융지원", "인력지원", "기술지원", "인증지원", "구매지원")
+        colnames(recom01) = c("Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         RMSE = recommenderlab::RMSE(as(r01, "matrix"), as.matrix(recom01))
         result = cbind(round(RMSE, 2), round(recom01, 2))
         result
@@ -341,7 +341,7 @@ server = function(input, output) {
         inputData02 = reScore(gclass02)
         r02 = as(inputData02, "realRatingMatrix")
         recom02 = predict(model02, r02, verbose = TRUE)
-        colnames(recom02) = c("조세지원", "자금지원", "금융지원", "인력지원", "기술지원", "인증지원", "구매지원")
+        colnames(recom02) = c("Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         RMSE = recommenderlab::RMSE(as(r02, "matrix"), as.matrix(recom02))
         result = cbind(round(RMSE, 2), round(recom02, 2))
         result
@@ -363,7 +363,7 @@ server = function(input, output) {
         inputData03 = reScore(gclass03)
         r03 = as(inputData03, "realRatingMatrix")
         recom03 = predict(model03, r03, verbose = TRUE)
-        colnames(recom03) = c("조세지원", "자금지원", "금융지원", "인력지원", "기술지원", "인증지원", "구매지원")
+        colnames(recom03) = c("Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         RMSE = recommenderlab::RMSE(as(r03, "matrix"), as.matrix(recom03))
         result = cbind(round(RMSE, 2), round(recom03, 2))
         result
@@ -385,7 +385,7 @@ server = function(input, output) {
         inputData04 = reScore(gclass04)
         r04 = as(inputData04, "realRatingMatrix")
         recom04 = predict(model04, r04, verbose = TRUE)
-        colnames(recom04) = c("조세지원", "자금지원", "금융지원", "인력지원", "기술지원", "인증지원", "구매지원")
+        colnames(recom04) = c("Tax support", "Funding support", "Financial support", "Manpower support", "Technical support", "Certification support", "Purchase support")
         RMSE = recommenderlab::RMSE(as(r04, "matrix"), as.matrix(recom04))
         result = cbind(round(RMSE, 2), round(recom04, 2))
         result
