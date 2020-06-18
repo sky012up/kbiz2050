@@ -101,7 +101,7 @@ server = function(input, output) {
 
                     query = read.csv(input$file1$datapath, header = input$header)
                     
-                    #01_산업분류
+                    
                     ind.kbiz = as.numeric(substr(query$KSIC, 1, 2))
 
                     kbizInd = which(ind.kbiz == 10 | ind.kbiz == 11 | ind.kbiz == 13 | ind.kbiz == 14 | ind.kbiz == 15 | ind.kbiz == 16 |
@@ -110,104 +110,104 @@ server = function(input, output) {
                                     ind.kbiz == 29 | ind.kbiz == 30 | ind.kbiz == 31 | ind.kbiz == 32 | ind.kbiz == 33)
                     query = query[kbizInd,]
 
-                    #03_설립연도
+                   
                     year.kbiz = query$YEAR
 
-                    #04_기업유형.벤처
+                    
                     type.venture.kbiz = as.numeric(query$SEP2)
                     type.venture.kbiz[which(is.na(type.venture.kbiz) == T)] = 0
 
-                    #05_기업유형.기술혁신형
+                    
                     type.inno.kbiz = as.numeric(query$SEP1)
                     type.inno.kbiz[which(is.na(type.inno.kbiz) == T)] = 0
 
-                    #06_기업유형.경영혁신형
+                    
                     type.main.kbiz = as.numeric(query$SEP3)
                     type.main.kbiz[which(is.na(type.main.kbiz) == T)] = 0
 
-                    #07_주력판매처.민간 (60 이상)
+                    
                     query$market.private.kbiz = 0
                     query$market.private.kbiz[which((query$SEP6 + query$SEP7) >= 60)] = 1
                     market.private.kbiz = query$market.private.kbiz
 
-                    #08_주력판매처.공공 (60 이상)
+                    
                     query$market.public.kbiz = 0
                     query$market.public.kbiz[which(query$SEP9 >= 60)] = 1       
                     market.public.kbiz = query$market.public.kbiz
 
-                    #09_주력판매처.일반소비자
+                    
                     query$market.customer.kbiz = 0
                     query$market.customer.kbiz[which(query$SEP8 >= 60)] = 1
                     market.customer.kbiz = query$market.customer.kbiz
 
-                    #10_주력판매처.해외
+                    
                     query$market.global.kbiz = 0
                     query$market.global.kbiz[which(query$SEP10 >= 60)] = 1
                     market.global.kbiz = query$market.global.kbiz
 
-                    #11_정보원천.내부
+                    
                     query$inform.inner.kbiz = 0
                     query$inform.inner.kbiz[which(query$A4S1 == 3 | query$A4S2 == 3 | query$A4S3 == 3)] = 1
                     infrom.inner.kbiz = query$inform.inner.kbiz
 
-                    #12_정보원천.컨퍼런스
+                    
                     query$inform.conference.kbiz = 0
                     query$inform.conference.kbiz[which(query$A4S1 == 1 | query$A4S2 == 1 | query$A4S3 == 1)] = 1
                     infrom.conference.kbiz = query$inform.conference.kbiz
 
-                    #13_정보원천.전문저널
+                    
                     query$inform.journal.kbiz = 0
                     query$inform.journal.kbiz[which(query$A4S1 == 2 | query$A4S2 == 2 | query$A4S3 == 2)] = 1
                     infrom.journal.kbiz = query$inform.journal.kbiz
 
-                    #14_정보원천.경쟁자
+                    
                     query$inform.competer.kbiz = 0
                     query$inform.competer.kbiz[which(query$A4S1 == 4 | query$A4S2 == 4 | query$A4S3 == 4)] = 1
                     infrom.competer.kbiz = query$inform.competer.kbiz
 
-                    #15_정보원천.민간서비스업체
+                    
                     query$inform.private.kbiz = 0
                     query$inform.private.kbiz[which(query$A4S1 == 6 | query$A4S2 == 6 | query$A4S3 == 6)] = 1
                     infrom.private.kbiz = query$inform.private.kbiz
 
-                    #16_정보원천.공급업체
+                    
                     query$inform.supply.kbiz = 0
                     query$inform.supply.kbiz[which(query$A4S1 == 5 | query$A4S2 == 5 | query$A4S3 == 5)] = 1
                     infrom.supply.kbiz = query$inform.supply.kbiz
 
-                    #17_정보원천.고객
+                  
                     query$inform.customer.kbiz = 0
                     query$inform.customer.kbiz[which(query$A4S1 == 7 | query$A4S2 == 7 | query$A4S3 == 7)] = 1
                     infrom.customer.kbiz = query$inform.customer.kbiz
 
-                    #18_정보원천.출연연
+                    
                     query$inform.gri.kbiz = 0
                     query$inform.gri.kbiz[which(query$A4S1 == 9 | query$A4S2 == 9 | query$A4S3 == 9)] = 1
                     infrom.gri.kbiz = query$inform.gri.kbiz
 
-                    #19_기술협력파트너.출연연 #NOTE:kbiz17는 매우만족이 1 매우 불만족이 5
+                    
                     query$partner.gri.kbiz = 0
                     query$partner.gri.kbiz[which(query$A3Q2 == 1 | query$A3Q2 == 2 | query$A3Q2 == 3)] = 1
                     partner.gri.kbiz = query$partner.gri.kbiz
 
-                    #20_기술협력파트너.대학
+                   
                     query$partner.univ.kbiz = 0
                     query$partner.univ.kbiz[which(query$A3Q1 == 1 | query$A3Q1 == 2 | query$A3Q1 == 3)] = 1
                     partner.univ.kbiz = query$partner.univ.kbiz
 
-                    #21_기술협력파트너.민간연구소
+                    
                     query$partner.pri.kbiz = 0
                     query$partner.pri.kbiz[which(query$A3Q3 == 1 | query$A3Q3 == 2 | query$A3Q3 == 3)] = 1
                     partner.pri.kbiz = query$partner.pri.kbiz
 
-                    #22_연구개발비(연속형)
+                    
                     rnd.total.kbiz = query$C1S1
 
-                    #23_내부R&D비중(연속형)
+                    
                     rnd.innerPortion.kbiz = round((query$C1S2 / (query$C1S2 + query$C1S7)) * 100, 0)
                     rnd.innerPortion.kbiz[which(is.nan(rnd.innerPortion.kbiz) == T)] = 0
 
-                    #24_자금조달.자체조달(주로)
+                    
                     self = query$C1S7
                     gov = query$C1S8 + query$C1S9
                     pri = query$C1S10 + query$C1S11 + query$C1S12
@@ -223,25 +223,25 @@ server = function(input, output) {
                     query$funding.self.kbiz[which(funding.result == 1)] = 1
                     funding.self.kbiz = query$funding.self.kbiz
 
-                    #25_자금조달.정부재원(주로)
+                    
                     query$funding.gov.kbiz = 0
                     query$funding.gov.kbiz[which(funding.result == 2)] = 1
                     funding.gov.kbiz = query$funding.gov.kbiz
 
-                    #26_자금조달.민간재원(주로)
+                   
                     query$funding.private.kbiz = 0
                     query$funding.private.kbiz[which(funding.result == 3)] = 1
                     funding.private.kbiz = query$funding.private.kbiz
 
-                    #27 종업원(연속형)
+                  
                     emp.kbiz = query$PEOTOT
                     emp.kbiz[is.na(emp.kbiz)] = 0
 
-                    #28 매출액(연속형)
+                 
                     sales.kbiz = query$F2S1
                     sales.kbiz[is.na(sales.kbiz)] = 0
 
-                    #29 수출액(연속형)
+                   
                     export.kbiz = query$F2S4
                     export.kbiz[is.na(export.kbiz)] = 0
 
@@ -284,7 +284,7 @@ server = function(input, output) {
                     rownames(kbizDf_pcmat_raw) = NULL
                     head(kbizDf_pcmat_raw)
 
-                   #연계시스템
+                
                     maxn = function(n) function(x) order(x, decreasing = TRUE)[n]
 
                     pred = list()
@@ -296,7 +296,7 @@ server = function(input, output) {
                     }
                     pred.result = do.call(cbind, pred)
 
-                    #성장단계 라벨링
+                   
                     grow.class = query$SEP5
                     mydata = cbind(grow.class, pred.result)
                     mydata
